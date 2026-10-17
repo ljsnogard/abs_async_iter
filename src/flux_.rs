@@ -7,12 +7,12 @@ pub trait TrFlux<T> {
     where
         Self: 'f;
 
-    type SubscribeAsync<'f>: TrMayCancel<'f, MayCancelOutput =
+    type PullAsync<'f>: TrMayCancel<'f, MayCancelOutput =
         Self::Iter<'f>>
     where
         Self: 'f;
 
-    fn subscribe_async(&mut self) -> Self::SubscribeAsync<'_>;
+    fn pull_async(&mut self) -> Self::PullAsync<'_>;
 }
 
 pub struct IntoIterAsFlux<I, T>(<I as IntoIterator>::IntoIter)
@@ -27,7 +27,7 @@ where
         IntoIterAsFlux(i.into_iter())
     }
 
-    pub fn subscribe_async(
+    pub fn pull_async(
         &mut self,
     ) -> core::future::Ready<&mut <I as IntoIterator>::IntoIter> {
         core::future::ready(&mut self.0)
@@ -42,11 +42,11 @@ where
     where
         Self: 'f;
 
-    type SubscribeAsync<'f> = core::future::Ready<Self::Iter<'f>>
+    type PullAsync<'f> = core::future::Ready<Self::Iter<'f>>
     where
         Self: 'f;
 
-    fn subscribe_async(&mut self) -> Self::SubscribeAsync<'_> {
+    fn pull_async(&mut self) -> Self::PullAsync<'_> {
         core::future::ready(&mut self.0)
     }
 }
