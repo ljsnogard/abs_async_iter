@@ -7,7 +7,7 @@ description = "ABStraction of STREAM"
 repository = "https://github.com/ljsnogard/abs_async_iter"
 keywords = ["async", "iter", "traits"]
 categories = ["no-std"]
-license = "MIT/Apache-2.0"
+license = "AGPL-3.0-or-later"
 readme = "README.md"
 
 [dependencies]
